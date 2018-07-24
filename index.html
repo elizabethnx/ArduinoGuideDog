@@ -1,1 +1,52 @@
-"Hello, World" 
+#include <Servo.h>                           // Include servo library
+
+Servo servoLeft;                             // Declare left servo signal
+Servo servoRight;                            // Declare right servo signal
+int leftWhisker =6;
+int rightWhisker =10; 
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(leftWhisker, INPUT);
+  pinMode(rightWhisker, INPUT);
+  servoLeft.attach(13);                      // Attach left signal to pin 13
+  servoRight.attach(12);                     // Attach right signal to pin 12
+}
+//void start(){
+//  servoLeft.writeMicroseconds(1700);
+//  servoRight.writeMicroseconds(1300);
+//}
+void touch (){
+  servoLeft.writeMicroseconds(1500);
+  servoRight.writeMicroseconds(1500);
+  delay(500);
+  servoRight.writeMicroseconds(1500);
+  servoLeft.writeMicroseconds(1500);
+  delay(100);
+}
+
+void loop() {
+  int leftValue = digitalRead(leftWhisker);
+  int rightValue = digitalRead(rightWhisker);
+servoLeft.writeMicroseconds(1700);
+servoRight.writeMicroseconds(1300);
+if (leftValue == 0 || rightValue == 0){
+touch();
+
+}
+//}
+//  Serial.print("Left: ");
+//  Serial.print(leftValue);
+//  Serial.print("Right: ");
+//  Serial.print(rightValue);
+//  Serial.print("");
+
+  if(leftValue == 1){
+    Serial.println("touched left whisker");
+  }else if(rightValue == 0){
+    Serial.println("touched right whisker");
+  }else{
+    Serial.println("didn't touch any");
+  }
+}
+
