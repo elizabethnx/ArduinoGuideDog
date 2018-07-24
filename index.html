@@ -1,21 +1,26 @@
 #include <Servo.h>                           // Include servo library
 
+
+
 Servo servoLeft;                             // Declare left servo signal
 Servo servoRight;                            // Declare right servo signal
 int leftWhisker =6;
 int rightWhisker =10; 
 
 void setup() {
+  
   Serial.begin(9600);
   pinMode(leftWhisker, INPUT);
   pinMode(rightWhisker, INPUT);
   servoLeft.attach(13);                      // Attach left signal to pin 13
   servoRight.attach(12);                     // Attach right signal to pin 12
 }
-//void start(){
+//void turnLeft(){
 //  servoLeft.writeMicroseconds(1700);
-//  servoRight.writeMicroseconds(1300);
+//  servoRight.writeMicroseconds(1700);
+//  delay(1000);
 //}
+
 void touch (){
   servoLeft.writeMicroseconds(1500);
   servoRight.writeMicroseconds(1500);
@@ -43,17 +48,16 @@ touch();
 
   if(leftValue == 1){
     Serial.println("touched left whisker");
+    servoLeft.writeMicroseconds(1700);
+    servoRight.writeMicroseconds(1700);
+    //turnLeft();
   }else if(rightValue == 0){
-    Serial.println("touched right whisker");
+    servoLeft.writeMicroseconds(1700);
+    servoRight.writeMicroseconds(1700);
+    //turnLeft();
   }else{
-    Serial.println("didn't touch any");
+    Serial.println("didn't touch whisker");
   }
 }
 
-void setup(){
-  Robot.begin();
-}
-void loop(){
-  Robot.turn(90); //Make the robot turn 90 degrees right
-  delay(1000);
-}
+
