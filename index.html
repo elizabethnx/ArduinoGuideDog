@@ -122,5 +122,14 @@ void PIRS (){
   }
 }
 
+  void setup () {
+  pinMode(led_builtin,OUTPUT);
+  }
+  void loop(){}
+    digitalwrite(led_builtin, LIGHT)
+    delay(1000);
+    digitalwrite(led_builtin, LOW)
+    delay(1000);
+  }
 
 
