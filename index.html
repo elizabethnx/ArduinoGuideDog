@@ -15,6 +15,7 @@ int note_E5 = 659;
 int note_F5 = 698;
 int note_C5 = 523;
 int note_D5 = 587;
+int LED_BUILTINI=6;
 
 
 void setup() {
@@ -113,27 +114,27 @@ void turn_right(){
 void loop() {
   int leftValue = digitalRead(leftWhisker);
   int rightValue = digitalRead(rightWhisker);
-//  servoLeft.writeMicroseconds(1700);
-//  servoRight.writeMicroseconds(1300);
-//  if (leftValue == 0 || rightValue == 0){
-//    touch();
-//    
-//    if(leftValue == 0 && rightValue== 1){
-//    delay(500);
-//    back();
-//    delay(700);
-//    turn_left();
-//    delay(1000);
-//
-//  }
-//    else if (rightValue == 0 && leftValue == 1){
-//    delay(500);
-//    back();
-//    delay(500);
-//    turn_right();
-//    delay(1000);
-//  }
-//  
+  servoLeft.writeMicroseconds(1700);
+  servoRight.writeMicroseconds(1300);
+  if (leftValue == 0 || rightValue == 0){
+    touch();
+    
+    if(leftValue == 0 && rightValue== 1){
+    delay(500);
+    back();
+    delay(700);
+    turn_left();
+    delay(1000);
+
+  }
+    else if (rightValue == 0 && leftValue == 1){
+    delay(500);
+    back();
+    delay(500);
+    turn_right();
+    delay(1000);
+  }
+  
   val = digitalRead(PIR);
   if(val == 1){
     Serial.println("On");
@@ -152,8 +153,16 @@ void loop() {
     //turnLeft();
     }//else{
     //Serial.println("didn't touch whisker");
-//}
+}
   }
+
+   
+
+
+  
+
+
+
 
    
 
