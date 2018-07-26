@@ -6,12 +6,18 @@ Servo servoLeft;                             // Declare left servo signal
 Servo servoRight;                            // Declare right servo signal
 int leftWhisker =6;
 int rightWhisker =10; 
+int pirState = LOW;             // we start, assuming no motion detected
+int PIR = 2;
+int val = 0;                    // variable for reading the pin status
+int PIEZOPIN= 11;
+
 
 void setup() {
   
   Serial.begin(9600);
   pinMode(leftWhisker, INPUT);
   pinMode(rightWhisker, INPUT);
+  pinMode(PIR, INPUT);
   servoLeft.attach(13);                      // Attach left signal to pin 13
   servoRight.attach(12);                     // Attach right signal to pin 12
 }
@@ -26,9 +32,33 @@ void touch (){
   delay(500);
 }
 
+
+//void PIRS (){
+//  val = digitalRead(PIR);  // read input value
+//  if (val == HIGH) {            // check if the input is HIGH
+//    digitalWrite(ledPin, HIGH);  // turn LED ON
+//    if (pirState == LOW) {
+//      // we have just turned on
+//      Serial.println("Motion detected!");
+//      // We only want to print on the output change, not state
+//      pirState = HIGH;
+//    }
+//  } else {
+//    digitalWrite(ledPin, LOW); // turn LED OFF
+//    if (pirState == HIGH){
+//      // we have just turned of
+//      Serial.println("Motion ended!");
+//      // We only want to print on the output change, not state
+//      pirState = LOW;
+//    }
+//  }
+//}
+  
+
+  
 void turn_left (){
-  servoLeft.writeMicroseconds(255);
-  servoRight.writeMicroseconds(255);
+  servoLeft.writeMicroseconds(1700);
+  servoRight.writeMicroseconds(1500);
 }
 
 void back(){
@@ -37,99 +67,59 @@ void back(){
 }
 
 void turn_right(){
-  servoLeft.writeMicroseconds(1460);
-  servoRight.writeMicroseconds(1540);
+  servoLeft.writeMicroseconds(90);
+  servoRight.writeMicroseconds(90);
 }
 
 void loop() {
   int leftValue = digitalRead(leftWhisker);
   int rightValue = digitalRead(rightWhisker);
-  servoLeft.writeMicroseconds(1700);
-  servoRight.writeMicroseconds(1300);
-  if (leftValue == 0 || rightValue == 0){
-    touch();
-    
-    if(leftValue == 0 && rightValue== 1)
-    delay(500);
-    back();
-    delay(500);
-    turn_left();
-    delay(500);
-
-  }
-    else if (rightValue == 0 && leftValue == 1){
-    delay(500);
-    back();
-    delay(500);
-    turn_right();
-    delay(500);
-  }
-  if(leftValue == 1){
-    Serial.println("touched left whisker");
-    servoLeft.writeMicroseconds(1700);
-    servoRight.writeMicroseconds(1700);
+//  servoLeft.writeMicroseconds(1700);
+//  servoRight.writeMicroseconds(1300);
+//  if (leftValue == 0 || rightValue == 0){
+//    touch();
+//    
+//    if(leftValue == 0 && rightValue== 1){
+//    delay(500);
+//    back();
+//    delay(700);
+//    turn_left();
+//    delay(1000);
+//
+//  }
+//    else if (rightValue == 0 && leftValue == 1){
+//    delay(500);
+//    back();
+//    delay(500);
+//    turn_right();
+//    delay(1000);
+//  }
+//  
+  val = digitalRead(PIR);
+  if(val == 1){
+    PIEZO();
+    delay(1000);
+    //servoLeft.writeMicroseconds(1700);
+    //servoRight.writeMicroseconds(1700);
     //turnLeft();
-  }else if(rightValue == 1){
-    servoLeft.writeMicroseconds(1700);
-    servoRight.writeMicroseconds(1700);
+  }else if(val == 0){
+    PIEZO2()
+     );
+    delay(1000);
+    //servoLeft.writeMicroseconds(1700);
+    //servoRight.writeMicroseconds(1700);
     //turnLeft();
-  }else{
-    Serial.println("didn't touch whisker");
-  }
-  
+    }//else{
+//    Serial.println("didn't touch whisker");
+//    }
+  //}
+}
    
 
 
-  }
-
-//  if(leftValue == 1){
-//    Serial.println("touched left whisker");
-//    servoLeft.writeMicroseconds(1700);
-//    servoRight.writeMicroseconds(1700);
-//    //turnLeft();
-//  }else if(rightValue == 0){
-//    servoLeft.writeMicroseconds(1700);
-//    servoRight.writeMicroseconds(1700);
-//    //turnLeft();
-//  }else{
-//    Serial.println("didn't touch whisker");
-//  }
-
-int pirState = LOW;             // we start, assuming no motion detected
-int inputPin = 2;
-int val = 0;                    // variable for reading the pin status
-  
   
 
-void PIRS (){
-  val = digitalRead(inputPin);  // read input value
-  if (val == HIGH) {            // check if the input is HIGH
-    digitalWrite(ledPin, HIGH);  // turn LED ON
-    if (pirState == LOW) {
-      // we have just turned on
-      Serial.println("Motion detected!");
-      // We only want to print on the output change, not state
-      pirState = HIGH;
-    }
-  } else {
-    digitalWrite(ledPin, LOW); // turn LED OFF
-    if (pirState == HIGH){
-      // we have just turned of
-      Serial.println("Motion ended!");
-      // We only want to print on the output change, not state
-      pirState = LOW;
-    }
-  }
-}
 
-  void setup () {
-  pinMode(led_builtin,OUTPUT);
-  }
-  void loop(){}
-    digitalwrite(led_builtin, LIGHT)
-    delay(1000);
-    digitalwrite(led_builtin, LOW)
-    delay(1000);
-  }
+
 
 
