@@ -20,6 +20,7 @@ int note_D5 = 587;
 void setup() {
   
   Serial.begin(9600);
+  pinMode(LED_BUILTINI, OUTPUT);
   pinMode(leftWhisker, INPUT);
   pinMode(rightWhisker, INPUT);
   pinMode(PIR, INPUT);
@@ -37,6 +38,13 @@ tone(PIEZOPIN, note_E5, 200);
   delay(500); 
   tone(PIEZOPIN, note_D5, 200); 
   delay(500); 
+}
+
+void LED(){
+  digitalWrite(LED_BUILTINI, HIGH);
+  delay(1000);
+  digitalWrite(LED_BUILTINI, LOW);
+  delay(1000);
 }
 
 void pIEZO2(){
@@ -127,23 +135,33 @@ void loop() {
 //  }
 //  
   val = digitalRead(PIR);
-  while(val == 1){
+  if(val == 1){
+    Serial.println("On");
     PIEZO();
-    delay(1000);
+    delay(500);
     //servoLeft.writeMicroseconds(1700);
     //servoRight.writeMicroseconds(1700);
     //turnLeft();
-  }if(val == 0){
+  }while (val == 0){
+    Serial.println("Off");
     pIEZO2();
     delay(1000);
     
     //servoLeft.writeMicroseconds(1700);
     //servoRight.writeMicroseconds(1700);
     //turnLeft();
-    }else{
+    }//else{
     //Serial.println("didn't touch whisker");
-}
+//}
   }
+
+   
+
+
+  
+
+
+
 
    
 
