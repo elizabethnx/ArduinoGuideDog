@@ -10,6 +10,11 @@ int pirState = LOW;             // we start, assuming no motion detected
 int PIR = 2;
 int val = 0;                    // variable for reading the pin status
 int PIEZOPIN= 11;
+int note_A4 = 440;
+int note_E5 = 659;
+int note_F5 = 698;
+int note_C5 = 523;
+int note_D5 = 587;
 
 
 void setup() {
@@ -21,7 +26,33 @@ void setup() {
   servoLeft.attach(13);                      // Attach left signal to pin 13
   servoRight.attach(12);                     // Attach right signal to pin 12
 }
+void PIEZO(){
+tone(PIEZOPIN, note_E5, 200); 
+  delay(500); 
+  tone(PIEZOPIN, note_D5, 200); 
+  delay(500); 
+  tone(PIEZOPIN, note_D5, 200); 
+  delay(500); 
+  tone(PIEZOPIN, note_D5, 200); 
+  delay(500); 
+  tone(PIEZOPIN, note_D5, 200); 
+  delay(500); 
+}
 
+void pIEZO2(){
+  tone(PIEZOPIN, note_A4, 200);
+  delay(500); 
+  tone(PIEZOPIN, note_A4, 200); 
+  delay(500);
+  tone(PIEZOPIN, note_A4, 200); 
+  delay(500); 
+  tone(PIEZOPIN, note_D5, 200); 
+  delay(500); 
+  tone(PIEZOPIN, note_E5, 200); 
+  delay(500); 
+  tone(PIEZOPIN, note_E5, 200); 
+  delay(500); 
+}
 
 void touch (){
   servoLeft.writeMicroseconds(1500);
@@ -96,24 +127,31 @@ void loop() {
 //  }
 //  
   val = digitalRead(PIR);
-  if(val == 1){
+  while(val == 1){
     PIEZO();
     delay(1000);
     //servoLeft.writeMicroseconds(1700);
     //servoRight.writeMicroseconds(1700);
     //turnLeft();
-  }else if(val == 0){
-    PIEZO2()
-     );
+  }if(val == 0){
+    pIEZO2();
     delay(1000);
+    
     //servoLeft.writeMicroseconds(1700);
     //servoRight.writeMicroseconds(1700);
     //turnLeft();
-    }//else{
-//    Serial.println("didn't touch whisker");
-//    }
-  //}
+    }else{
+    //Serial.println("didn't touch whisker");
 }
+  }
+
+   
+
+
+  
+
+
+
    
 
 
