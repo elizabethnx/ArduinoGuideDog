@@ -16,13 +16,13 @@ int note_E5 = 659;
 int note_F5 = 698;
 int note_C5 = 523;
 int note_D5 = 587;
-int LED_BUILTINI=6;
+int LED_1=6;
 
 
 void setup() {
   
   Serial.begin(9600);
-  pinMode(LED_BUILTINI, OUTPUT);
+  pinMode(LED_1, OUTPUT);
   pinMode(leftWhisker, INPUT);
   pinMode(rightWhisker, INPUT);
   pinMode(PIR, INPUT);
@@ -30,7 +30,7 @@ void setup() {
   servoRight.attach(12);                     // Attach right signal to pin 12
 }
 void PIEZO(){
-tone(PIEZOPIN, note_E5, 200); 
+tone(PIEZOPIN, note_D5, 200); 
   delay(500); 
   tone(PIEZOPIN, note_D5, 200); 
   delay(500); 
@@ -42,10 +42,10 @@ tone(PIEZOPIN, note_E5, 200);
   delay(500); 
 }
 
-void LED(){
-  digitalWrite(LED_BUILTINI, HIGH);
-  delay(1000);
-  digitalWrite(LED_BUILTINI, LOW);
+void LED() {
+  digitalWrite(LED_1, HIGH);
+  delay(10000);
+  digitalWrite(LED_1, LOW);
   delay(1000);
 }
 
@@ -56,11 +56,11 @@ void pIEZO2(){
   delay(500);
   tone(PIEZOPIN, note_A4, 200); 
   delay(500); 
-  tone(PIEZOPIN, note_D5, 200); 
+  tone(PIEZOPIN, note_A4, 200); 
   delay(500); 
-  tone(PIEZOPIN, note_E5, 200); 
+  tone(PIEZOPIN, note_A4, 200); 
   delay(500); 
-  tone(PIEZOPIN, note_E5, 200); 
+  tone(PIEZOPIN, note_A4, 200); 
   delay(500); 
 }
 
