@@ -97,46 +97,72 @@ void loop() {
   int rightValue = digitalRead(rightWhisker);
   servoLeft.writeMicroseconds(1700);
   servoRight.writeMicroseconds(1300);
-  if (leftValue == 0 || rightValue == 0){
-  
+  if (leftValue == 0 && rightValue == 0){ //was ||
     touch();
-    if(leftValue == 0 && rightValue== 1){
-    delay(500);
     back();
-    delay(700);
     turn_left();
-    delay(1000);
-    }else if (rightValue == 0 && leftValue == 1){
-    delay(500);
-    back();
-    delay(500);
-    turn_right();
-    delay(1000);
+    if(leftValue == 0 && rightValue == 1){
+      turn_right();
+    }else if(leftValue == 1 && rightValue == 0){
+      turn_left();
+      
     }
-  }
-  
-  
-  val = digitalRead(PIR);
-  if(val == 1){
-    Serial.println("On");
-    PIEZO();
-    delay(100);
-    touch();
-    delay(100);
-    turn_right();
-    delay(100);
-    }else if (val == 0){
-    Serial.println("Off");
-    pIEZO2();
-    delay(100);
-    
-    servoLeft.writeMicroseconds(1700);
-    servoRight.writeMicroseconds(1700);
-    turn_left();
-    }else{
-      Serial.println("didn't touch whisker");
+   }
+   if(leftValue == 0 && rightValue== 1){
+      delay(500);
+      back();
+      delay(700);
+      turn_left();
+      delay(1000);
+      }else if (rightValue == 0 && leftValue == 1){
+        delay(500);
+        back();
+        delay(500);
+        turn_right();
+        delay(1000);
     }
+  
+  else if(leftValue == 1 && rightValue== 1){
+    val = digitalRead(PIR);
+    if(val == 1){
+      Serial.println("On");
+      PIEZO();
+      delay(100);
+      touch();
+      delay(100);
+      turn_right();
+      delay(100);
+      }else if (val == 0){
+        Serial.println("Off");
+        pIEZO2();
+        delay(100);
+       }
+ }
 }
+  
+  
+//  val = digitalRead(PIR);
+//  if(val == 1){
+//    Serial.println("On");
+//    PIEZO();
+//    delay(100);
+//    touch();
+//    delay(100);
+//    turn_right();
+//    delay(100);
+//    }else if (val == 0){
+//    Serial.println("Off");
+//    pIEZO2();
+//    delay(100);
+    
+//    servoLeft.writeMicroseconds(1700);
+//    servoRight.writeMicroseconds(1700);
+//    turn_left();
+//    }else{
+//      Serial.println("didn't touch whisker");
+//    }
+//}
+//  
   
   
 
