@@ -1,3 +1,4 @@
+
 #include <Servo.h>                           // Include servo library
 
 
@@ -72,27 +73,6 @@ void touch (){
   delay(500);
 }
 
-
-//void PIRS (){
-//  val = digitalRead(PIR);  // read input value
-//  if (val == HIGH) {            // check if the input is HIGH
-//    digitalWrite(ledPin, HIGH);  // turn LED ON
-//    if (pirState == LOW) {
-//      // we have just turned on
-//      Serial.println("Motion detected!");
-//      // We only want to print on the output change, not state
-//      pirState = HIGH;
-//    }
-//  } else {
-//    digitalWrite(ledPin, LOW); // turn LED OFF
-//    if (pirState == HIGH){
-//      // we have just turned of
-//      Serial.println("Motion ended!");
-//      // We only want to print on the output change, not state
-//      pirState = LOW;
-//    }
-//  }
-//}
   
 
   
@@ -112,41 +92,40 @@ void turn_right(){
 }
 
 void loop() {
-  int leftValue = digitalRead(leftWhisker);
-  int rightValue = digitalRead(rightWhisker);
+  //int leftValue = digitalRead(leftWhisker);
+  //int rightValue = digitalRead(rightWhisker);
   servoLeft.writeMicroseconds(1700);
   servoRight.writeMicroseconds(1300);
-  if (leftValue == 0 || rightValue == 0){
-    touch();
+  //if (leftValue == 0 || rightValue == 0){
+    //touch();
     
-    if(leftValue == 0 && rightValue== 1){
-    delay(500);
-    back();
-    delay(700);
-    turn_left();
-    delay(1000);
+    //if(leftValue == 0 && rightValue== 1){
+    //delay(500);
+    //back();
+    //delay(700);
+    //turn_left();
+    //delay(1000);
 
-  }
-    else if (rightValue == 0 && leftValue == 1){
-    delay(500);
-    back();
-    delay(500);
-    turn_right();
-    delay(1000);
-  }
+  
+//    else if (rightValue == 0 && leftValue == 1){
+//    delay(500);
+//    back();
+//    delay(500);
+//    turn_right();
+//    delay(1000);
+//  }
   
   val = digitalRead(PIR);
   if(val == 1){
     Serial.println("On");
+    delay(250);
     PIEZO();
-    delay(500);
-    //servoLeft.writeMicroseconds(1700);
-    //servoRight.writeMicroseconds(1700);
-    //turnLeft();
-  }while (val == 0){
+    delay(250);
+    touch();
+    }while (val == 0){
     Serial.println("Off");
     pIEZO2();
-    delay(1000);
+    delay(500);
     
     //servoLeft.writeMicroseconds(1700);
     //servoRight.writeMicroseconds(1700);
@@ -154,7 +133,7 @@ void loop() {
     }//else{
     //Serial.println("didn't touch whisker");
 }
-  }
+  
 
    
 
