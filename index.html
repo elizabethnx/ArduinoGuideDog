@@ -7,62 +7,49 @@ Servo servoLeft;                             // Declare left servo signal
 Servo servoRight;                            // Declare right servo signal
 int leftWhisker =4;
 int rightWhisker = 3; 
-int pirState = LOW;             // we start, assuming no motion detected
-int PIR = 7;
-int val = 0;                    // variable for reading the pin status
 int PIEZOPIN= 2;
+int PIEZOPIN2= 8;
+int PIEZOPIN3= 9;
 int note_A4 = 440;
 int note_E5 = 659;
 int note_F5 = 698;
 int note_C5 = 523;
 int note_D5 = 587;
+int note_D3 = 147;
+int note_C3 = 131;
+int note_C6 = 1047;
+int note_D6 = 1175;
+int note_C7 = 2093;
+int note_D7 = 2349;
+
 int LED=6;
 
 
 void setup() {
-  delay(40000);
+  //delay(40000);
   Serial.begin(9600);
-  pinMode(LED, OUTPUT);
+  
   pinMode(leftWhisker, INPUT);
   pinMode(rightWhisker, INPUT);
-  pinMode(PIR, INPUT);
+  //pinMode(PIR, INPUT);
   servoLeft.attach(13);                      // Attach left signal to pin 13
   servoRight.attach(12);                     // Attach right signal to pin 12
 }
 void PIEZO(){
-  tone(PIEZOPIN, note_D5, 200); 
+  tone(PIEZOPIN, note_C6, 200); 
+  tone(PIEZOPIN2, note_C6, 200);
+  tone(PIEZOPIN3, note_C6, 200);
   delay(500); 
-  tone(PIEZOPIN, note_D5, 200); 
+  tone(PIEZOPIN, note_C6, 200); 
+  tone(PIEZOPIN2, note_C6, 200);
+  tone(PIEZOPIN3, note_C6, 200);
   delay(500); 
-  tone(PIEZOPIN, note_D5, 200); 
-  delay(500); 
-  tone(PIEZOPIN, note_D5, 200); 
-  delay(500); 
-  tone(PIEZOPIN, note_D5, 200); 
+  tone(PIEZOPIN, note_D6, 200); 
+  tone(PIEZOPIN2, note_D6, 200); 
+  tone(PIEZOPIN3, note_D6, 200); 
   delay(500); 
 }
 
-//void LED(){
-//  digitalWrite(LED_BUILTINI, HIGH);
-//  delay(1000);
-//  digitalWrite(LED_BUILTINI, LOW);
-//  delay(1000);
-//}
-
-void pIEZO2(){
-  tone(PIEZOPIN, note_A4, 200);
-  delay(500); 
-  tone(PIEZOPIN, note_A4, 200); 
-  delay(500);
-  tone(PIEZOPIN, note_A4, 200); 
-  delay(500); 
-  tone(PIEZOPIN, note_D5, 200); 
-  delay(500); 
-  tone(PIEZOPIN, note_E5, 200); 
-  delay(500); 
-  tone(PIEZOPIN, note_E5, 200); 
-  delay(500); 
-}
 
 void touch (){
   servoLeft.writeMicroseconds(1500);
@@ -73,6 +60,10 @@ void touch (){
   delay(500);
 }
 
+void straight(){
+  servoLeft.writeMicroseconds(1700);
+  servoRight.writeMicroseconds(1300);
+}
   
 
   
@@ -87,9 +78,26 @@ void back(){
 }
 
 void turn_right(){
-  servoLeft.writeMicroseconds(90);
-  servoRight.writeMicroseconds(90);
+  servoLeft.writeMicroseconds(45);
+  servoRight.writeMicroseconds(45);
 }
+
+//void make_sound(){
+//  tone(PIEZOPIN, note_A4, 200);
+//  delay(500); 
+//  tone(PIEZOPIN, note_A4, 200); 
+//  delay(500);
+//  tone(PIEZOPIN, note_A4, 200); 
+//  delay(500); 
+//  tone(PIEZOPIN, note_D5, 200); 
+//  delay(500); 
+//  tone(PIEZOPIN, note_E5, 200); 
+//  delay(500); 
+//  tone(PIEZOPIN, note_E5, 200); 
+//  delay(500); 
+//}
+
+  
 
 void loop() {
   
@@ -97,89 +105,49 @@ void loop() {
   int rightValue = digitalRead(rightWhisker);
   servoLeft.writeMicroseconds(1700);
   servoRight.writeMicroseconds(1300);
-  if (leftValue == 0 && rightValue == 0){ //was ||
+  int makesound();
+  if (leftValue == 1 && rightValue == 1){ //was ||
     Serial.print(2);
-    touch();
-    back();
-    turn_left();
+    straight();
+    if (leftValue == 0 && rightValue == 0){
+      PIEZO();
+      back();
+      delay(500);
+      straight();
+      delay(100);
+      turn_right();
+      delay(100);
+      straight();
+      if (leftValue== 0 && rightValue == 1){
+        Serial.print("toga");
+      }
+      
+      
+    }
+     
+//    touch();
+//    back();
+//    turn_left();
     }
    
-  else if(leftValue == 0 && rightValue== 1){
-    Serial.print("I'm here");
+else if(leftValue == 0 && rightValue== 1){
+  Serial.print("I'm here");
+    PIEZO();    
+    delay(2000);
+    back();
+    delay(700);
+    turn_right();
+    delay(550);
+    }else if (rightValue == 0 && leftValue == 1){
       delay(500);
       back();
-      delay(700);
-      turn_right();
+      delay(500);
+      turn_left();
       delay(1000);
-      }else if (rightValue == 0 && leftValue == 1){
-        delay(500);
-        back();
-        delay(500);
-        turn_left();
-        delay(1000);
-    }
-  
-  else if(leftValue == 1 && rightValue== 1){
-    val = digitalRead(PIR);
-    if(val == 1){
-      Serial.println("On");
-      touch();
-      delay(100);
-      turn_right();
-      delay(100);
-      PIEZO();
-      }else if (val == 0){
-        Serial.println("Off");
-        pIEZO2();
-        delay(100);
-       }
- }
-}
-  
-  
-//  val = digitalRead(PIR);
-//  if(val == 1){
-//    Serial.println("On");
-//    PIEZO();
-//    delay(100);
-//    touch();
-//    delay(100);
-//    turn_right();
-//    delay(100);
-//    }else if (val == 0){
-//    Serial.println("Off");
-//    pIEZO2();
-//    delay(100);
-    
-//    servoLeft.writeMicroseconds(1700);
-//    servoRight.writeMicroseconds(1700);
-//    turn_left();
-//    }else{
-//      Serial.println("didn't touch whisker");
-//    }
-//}
-//////STILL MOVES TO THE PIEZO BUT I DELETED IT??
-//  
-  
-  
+}}
 
-   
+ // else if(leftValue == 1 && rightValue== 1){
 
-
-  
-
-
-
-
-   
-
-
-  
-
-
-
-
-   
 
 
   
