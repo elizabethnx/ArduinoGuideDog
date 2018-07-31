@@ -7,7 +7,6 @@ Servo servoRight;                            // Declare right servo signal
 int leftWhisker =4;
 int rightWhisker = 3; 
 int PIEZOPIN= 2;
-int PIEZOPIN2= 8;
 int PIEZOPIN3= 9;
 int note_A4 = 440;
 int note_E5 = 659;
@@ -21,30 +20,26 @@ int note_D6 = 1175;
 int note_C7 = 2093;
 int note_D7 = 2349;
 
-int LED=6;
-
 
 void setup() {
-  //delay(40000);
   Serial.begin(9600);
   
   pinMode(leftWhisker, INPUT);
   pinMode(rightWhisker, INPUT);
-  //pinMode(PIR, INPUT);
   servoLeft.attach(13);                      // Attach left signal to pin 13
   servoRight.attach(12);                     // Attach right signal to pin 12
 }
 void PIEZO(){
   tone(PIEZOPIN, note_C6, 200); 
-  tone(PIEZOPIN2, note_C6, 200);
+  //tone(PIEZOPIN2, note_C6, 200);
   tone(PIEZOPIN3, note_C6, 200);
   delay(500); 
   tone(PIEZOPIN, note_C6, 200); 
-  tone(PIEZOPIN2, note_C6, 200);
+  //tone(PIEZOPIN2, note_C6, 200);
   tone(PIEZOPIN3, note_C6, 200);
   delay(500); 
   tone(PIEZOPIN, note_D6, 200); 
-  tone(PIEZOPIN2, note_D6, 200); 
+  //tone(PIEZOPIN2, note_D6, 200); 
   tone(PIEZOPIN3, note_D6, 200); 
   delay(500); 
 }
@@ -85,21 +80,6 @@ void turn_right(){
   //touch();
 }
 
-//void make_sound(){
-//  tone(PIEZOPIN, note_A4, 200);
-//  delay(500); 
-//  tone(PIEZOPIN, note_A4, 200); 
-//  delay(500);
-//  tone(PIEZOPIN, note_A4, 200); 
-//  delay(500); 
-//  tone(PIEZOPIN, note_D5, 200); 
-//  delay(500); 
-//  tone(PIEZOPIN, note_E5, 200); 
-//  delay(500); 
-//  tone(PIEZOPIN, note_E5, 200); 
-//  delay(500); 
-//}
-
   
 
 void loop() {
@@ -112,38 +92,39 @@ void loop() {
   Serial.println(rightValue);
   servoLeft.writeMicroseconds(1700);
   servoRight.writeMicroseconds(1300);
-  int makesound();
+ 
   straight();
-    if (leftValue == 0 && rightValue == 0){
-      back();
-      PIEZO();
-      delay(100);
-      straight();
-      delay(350);
-      turn_right();
-      delay(500);
-     
-      
-    }
-     
-//    touch();
-//    back();
-//    turn_left();
-    else if(leftValue == 0 && rightValue== 1){
-      Serial.print("I'm here");
-      back();    
-      delay(100);
-      PIEZO(); 
-      delay(200);
-      turn_right();
-      delay(300);
-    }else if (rightValue == 0 && leftValue == 1){
-      Serial.print("Turn left");
-      delay(500);
-      back();
-      delay(300);
-      turn_left();
-      delay(300);
-}}  
-
-
+}
+//    if (leftValue == 0 && rightValue == 0){
+//      back();
+//      PIEZO();
+//      delay(100);
+//      straight();
+//      delay(350);
+//      turn_right();
+//      delay(500);
+//     
+//      
+//    }
+//     
+//
+//    else if(leftValue == 0 && rightValue== 1){
+//      Serial.print("I'm here");
+//      delay(500);
+//      back();    
+//      delay(300);
+//      PIEZO(); 
+//      delay(200);
+//      turn_right();
+//      delay(300);
+//    }else if (rightValue == 0 && leftValue == 1){
+//      Serial.print("Turn left");
+//      delay(500);
+//      back();
+//      delay(300);
+//      PIEZO();
+//      delay(100);
+//      turn_left();
+//      delay(500);
+//}}  
+//
