@@ -1,71 +1,33 @@
-#include <Servo.h>                           // Include servo library
+#include <Servo.h>
 
-
-
-Servo servoLeft;                             // Declare left servo signal
-Servo servoRight;                            // Declare right servo signal
+Servo servoLeft;
+Servo servoRight;
 int leftWhisker =4;
-int rightWhisker = 3; 
+int rightWhisker = 3;
 int PIEZOPIN= 2;
 int PIEZOPIN3= 9;
-int note_A4 = 440;
-int note_E5 = 659;
-int note_F5 = 698;
-int note_C5 = 523;
-int note_D5 = 587;
-int note_D3 = 147;
-int note_C3 = 131;
 int note_C6 = 1047;
 int note_D6 = 1175;
-int note_C7 = 2093;
-int note_D7 = 2349;
+ 
 
 
 void setup() {
   Serial.begin(9600);
-  
+  servoLeft.attach(13);                      
+  servoRight.attach(12);
   pinMode(leftWhisker, INPUT);
   pinMode(rightWhisker, INPUT);
-  servoLeft.attach(13);                      // Attach left signal to pin 13
-  servoRight.attach(12);                     // Attach right signal to pin 12
-}
-void PIEZO(){
-  tone(PIEZOPIN, note_C6, 200); 
-  //tone(PIEZOPIN2, note_C6, 200);
-  tone(PIEZOPIN3, note_C6, 200);
-  delay(500); 
-  tone(PIEZOPIN, note_C6, 200); 
-  //tone(PIEZOPIN2, note_C6, 200);
-  tone(PIEZOPIN3, note_C6, 200);
-  delay(500); 
-  tone(PIEZOPIN, note_D6, 200); 
-  //tone(PIEZOPIN2, note_D6, 200); 
-  tone(PIEZOPIN3, note_D6, 200); 
-  delay(500); 
-}
 
+}
 
 void touch (){
   servoLeft.writeMicroseconds(1500);
   servoRight.writeMicroseconds(1500);
   delay(500);
-  servoRight.writeMicroseconds(1500);
-  servoLeft.writeMicroseconds(1500);
-  delay(500);
 }
-
 void straight(){
   servoLeft.writeMicroseconds(1700);
   servoRight.writeMicroseconds(1300);
-}
-  
-
-  
-void turn_left (){
-  servoLeft.writeMicroseconds(1700);
-  servoRight.writeMicroseconds(1500);
-  delay(200);
-  //touch();
 }
 
 void back(){
@@ -76,55 +38,69 @@ void back(){
 void turn_right(){
   servoLeft.writeMicroseconds(1500);
   servoRight.writeMicroseconds(1700);
-  delay(1000);
+  delay(500);
+}
+  
+void turn_left (){
+  servoLeft.writeMicroseconds(90);
+  servoRight.writeMicroseconds(90);
+  delay(500);
   //touch();
 }
 
-  
+void PIEZO(){
+  tone(PIEZOPIN, note_C6, 200); 
+  tone(PIEZOPIN3, note_C6, 200);
+  delay(200); 
+  tone(PIEZOPIN, note_C6, 200); 
+  tone(PIEZOPIN3, note_C6, 200);
+  delay(200); 
+  tone(PIEZOPIN, note_D6, 200); 
+  tone(PIEZOPIN3, note_D6, 200); 
+  delay(200); 
+}
 
 void loop() {
-  
   int leftValue = digitalRead(leftWhisker);
   int rightValue = digitalRead(rightWhisker);
   Serial.print("Left: ");
   Serial.println(leftValue);
   Serial.print("Right: "); 
   Serial.println(rightValue);
-  servoLeft.writeMicroseconds(1700);
-  servoRight.writeMicroseconds(1300);
- 
   straight();
+
+
+  if (leftValue ==0 && rightValue == 0){
+    //touch();
+    PIEZO();
+    back();
+    //delay(250);
+    straight();
+    //delay(400);
+    turn_right();
+    delay(500);
+  }
+
+  else if (leftValue ==0 && rightValue == 1){
+    //touch();
+    PIEZO();
+    back();
+    //delay(250);
+    straight();
+    //delay(300);
+    turn_left();
+    delay(500);
+    }
+
+   else if (leftValue == 1 && rightValue == 0){
+    //touch();
+    PIEZO();
+    back();
+    //delay(250);
+    straight();
+    //delay(300);
+    turn_right();
+    delay(500);
+    
+   }
 }
-//    if (leftValue == 0 && rightValue == 0){
-//      back();
-//      PIEZO();
-//      delay(100);
-//      straight();
-//      delay(350);
-//      turn_right();
-//      delay(500);
-//     
-//      
-//    }
-//     
-//
-//    else if(leftValue == 0 && rightValue== 1){
-//      Serial.print("I'm here");
-//      delay(500);
-//      back();    
-//      delay(300);
-//      PIEZO(); 
-//      delay(200);
-//      turn_right();
-//      delay(300);
-//    }else if (rightValue == 0 && leftValue == 1){
-//      Serial.print("Turn left");
-//      delay(500);
-//      back();
-//      delay(300);
-//      PIEZO();
-//      delay(100);
-//      turn_left();
-//      delay(500);
-//}}  
-//
