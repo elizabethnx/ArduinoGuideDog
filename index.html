@@ -1,4 +1,3 @@
-
 #include <Servo.h>                           // Include servo library
 
 
@@ -70,6 +69,8 @@ void straight(){
 void turn_left (){
   servoLeft.writeMicroseconds(1700);
   servoRight.writeMicroseconds(1500);
+  delay(200);
+  //touch();
 }
 
 void back(){
@@ -78,8 +79,10 @@ void back(){
 }
 
 void turn_right(){
-  servoLeft.writeMicroseconds(45);
-  servoRight.writeMicroseconds(45);
+  servoLeft.writeMicroseconds(1500);
+  servoRight.writeMicroseconds(1700);
+  delay(1000);
+  //touch();
 }
 
 //void make_sound(){
@@ -103,63 +106,44 @@ void loop() {
   
   int leftValue = digitalRead(leftWhisker);
   int rightValue = digitalRead(rightWhisker);
+  Serial.print("Left: ");
+  Serial.println(leftValue);
+  Serial.print("Right: "); 
+  Serial.println(rightValue);
   servoLeft.writeMicroseconds(1700);
   servoRight.writeMicroseconds(1300);
   int makesound();
-  if (leftValue == 1 && rightValue == 1){ //was ||
-    Serial.print(2);
-    straight();
+  straight();
     if (leftValue == 0 && rightValue == 0){
-      PIEZO();
       back();
-      delay(500);
-      straight();
+      PIEZO();
       delay(100);
+      straight();
+      delay(350);
       turn_right();
-      delay(100);
-      straight();
-      if (leftValue== 0 && rightValue == 1){
-        Serial.print("toga");
-      }
-      
+      delay(500);
+     
       
     }
      
 //    touch();
 //    back();
 //    turn_left();
-    }
-   
-else if(leftValue == 0 && rightValue== 1){
-  Serial.print("I'm here");
-    PIEZO();    
-    delay(2000);
-    back();
-    delay(700);
-    turn_right();
-    delay(550);
+    else if(leftValue == 0 && rightValue== 1){
+      Serial.print("I'm here");
+      back();    
+      delay(100);
+      PIEZO(); 
+      delay(200);
+      turn_right();
+      delay(300);
     }else if (rightValue == 0 && leftValue == 1){
+      Serial.print("Turn left");
       delay(500);
       back();
-      delay(500);
+      delay(300);
       turn_left();
-      delay(1000);
-}}
-
- // else if(leftValue == 1 && rightValue== 1){
-
-
-
-  
-
-
-
-   
-
-
-  
-
-
-
+      delay(300);
+}}  
 
 
