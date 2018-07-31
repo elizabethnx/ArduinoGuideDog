@@ -38,14 +38,13 @@ void back(){
 void turn_right(){
   servoLeft.writeMicroseconds(1500);
   servoRight.writeMicroseconds(1700);
-  delay(500);
+  delay(300);
 }
   
 void turn_left (){
   servoLeft.writeMicroseconds(90);
   servoRight.writeMicroseconds(90);
-  delay(500);
-  //touch();
+  delay(300);
 }
 
 void PIEZO(){
@@ -71,7 +70,7 @@ void loop() {
 
 
   if (leftValue ==0 && rightValue == 0){
-    //touch();
+    
     PIEZO();
     back();
     //delay(250);
@@ -89,7 +88,7 @@ void loop() {
     straight();
     //delay(300);
     turn_left();
-    delay(500);
+    delay(260);
     }
 
    else if (leftValue == 1 && rightValue == 0){
@@ -100,7 +99,7 @@ void loop() {
     straight();
     //delay(300);
     turn_right();
-    delay(500);
+    delay(600);
     
    }
 }
